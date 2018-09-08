@@ -1,0 +1,20 @@
+version: '2'
+networks:
+  oracle_network:
+    external: true
+services:
+  ibm-mq: 
+    image: ibmcom/mq
+    restart: always
+    ports:
+    - 9443:9443
+    - 1414:1414
+    external_links:
+    - oracle-db_1:db
+    environment:
+    - MQ_ADMIN_PASSWORD=passw0rd
+    - MQ_APP_PASSWORD=passw0rd
+    - LICENSE=accept
+    - MQ_QMGR_NAME=QM1
+    networks:
+    - oracle_network
